@@ -25,6 +25,7 @@ namespace BeetleEngine
             // 
             // Canvas
             // 
+            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Canvas";
@@ -38,6 +39,7 @@ namespace BeetleEngine
         public static Vector2 screenSize = new Vector2(500, 500);
         public string title;
         public Canvas window;
+        public Color windowBackground;
         private Thread _gameLoopThread;
         public static List<Shape> renderStack = new List<Shape>();
         
@@ -47,10 +49,12 @@ namespace BeetleEngine
         {
             screenSize = newScreenSize;
             this.title = newTitle;
+            windowBackground = Color.Gray;
 
             window = new Canvas();
             window.Size = new Size((int)screenSize.x, (int)screenSize.y);
             window.Text = this.title;
+            window.BackColor = windowBackground;
             window.Paint += Renderer;
 
             _gameLoopThread = new Thread(GameLoop);

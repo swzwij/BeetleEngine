@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BugEngine
+namespace BeetleEngine
 {
     public static class Vector2Utils
     {

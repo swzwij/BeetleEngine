@@ -22,23 +22,5 @@ namespace BeetleEngine
             Tag = tag;
             BeetleEngine.RegisterShape(this);
         }
-
-        public bool IsCollided(Shape shape, string tag)
-        {
-            // TODO: correcte AABB intersection gebruiken
-            List<Shape> shapes = BeetleEngine.GetShapesWithTag(tag);
-
-            foreach (Shape obj in shapes)
-            {
-                if (obj.Position.y + obj.Scale.y > shape.Position.y &&
-                    shape.Position.y + shape.Scale.y > obj.Position.y &&
-                    obj.Position.x + obj.Scale.x > shape.Position.x &&
-                    shape.Position.x + shape.Scale.x > obj.Position.x)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }
