@@ -31,5 +31,101 @@ namespace BeetleEngine
 
             return normalizedVector;
         }
+
+        #region Vector2 (Zero, One, Up, Down, Right, Left)
+
+        /// <summary>
+        /// Short for Vector2(0, 0)
+        /// </summary>
+        public static Vector2 Zero(this Vector2 vector)
+        {
+            return new Vector2(0, 0);
+        }
+
+        /// <summary>
+        /// Short for Vector2(1, 1)
+        /// </summary>
+        public static Vector2 One(this Vector2 vector)
+        {
+            return new Vector2(1, 1);
+        }
+
+        /// <summary>
+        /// Short for Vector2(0, 1)
+        /// </summary>
+        public static Vector2 Up(this Vector2 vector)
+        {
+            return new Vector2(0, 1);
+        }
+
+        /// <summary>
+        /// Short for Vector2(0, -1)
+        /// </summary>
+        public static Vector2 Down(this Vector2 vector)
+        {
+            return new Vector2(0, -1);
+        }
+
+        /// <summary>
+        /// Short for Vector2(1, 0)
+        /// </summary>
+        public static Vector2 Right(this Vector2 vector)
+        {
+            return new Vector2(1, 0);
+        }
+
+        /// <summary>
+        /// Short for Vector2(-1, 0)
+        /// </summary>
+        public static Vector2 Left(this Vector2 vector)
+        {
+            return new Vector2(-1, 0);
+        }
+
+        #endregion 
+
+        #region Vector2 (Add, Subtract, Multiply, Devide) // TODO: operator overload?
+
+        /// <summary>
+        /// Add two vectors with eachother
+        /// </summary>
+        public static Vector2 Add(this Vector2 vectorA, Vector2 vectorB)
+        {
+            double x = vectorA.x + vectorB.x;
+            double y = vectorA.y + vectorB.y;
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Subtract two vectors with eachother
+        /// </summary>
+        public static Vector2 Subtract(this Vector2 vectorA, Vector2 vectorB)
+        {
+            double x = vectorA.x - vectorB.x;
+            double y = vectorA.y - vectorB.y;
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Multiply two vectors with eachother
+        /// </summary>
+        public static Vector2 Multiply(this Vector2 vectorA, Vector2 vectorB)
+        {
+            double x = vectorA.x * vectorB.x;
+            double y = vectorA.y * vectorB.y;
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Devide two vectors with eachother
+        /// </summary>
+        public static Vector2 Devide(this Vector2 vectorA, Vector2 vectorB)
+        {
+            double x = vectorA.x - vectorB.x;
+            double y = vectorA.y - vectorB.y;
+            return new Vector2(x, y);
+        }
+
+        #endregion 
     }
 }

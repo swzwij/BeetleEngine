@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace BeetleEngine
         public Color windowBackground;
         private Thread _gameLoopThread;
         public static List<Shape> renderStack = new List<Shape>();
-        
+
         public static bool W, A, S, D;
 
         public BeetleEngine(Vector2 newScreenSize, string newTitle)
@@ -54,7 +55,8 @@ namespace BeetleEngine
             window = new Canvas();
             window.Size = new Size((int)screenSize.x, (int)screenSize.y);
             window.Text = this.title;
-            window.BackColor = windowBackground;
+            window.Opacity = 1;
+            window.ForeColor = Color.Blue;
             window.Paint += Renderer;
 
             _gameLoopThread = new Thread(GameLoop);
