@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BugEngine;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,21 +11,45 @@ namespace BeetleEngine
 {
     class BeetleGame : BeetleEngine
     {
-        public BeetleGame() : base(new Vector2(800, 400), "Beetle Game") { }
+        public BeetleGame() : base(new Vector2(1000, 750), "Beetle Game") { }
 
         Shape player;
-        Shape enemy;
-        Shape enemy2;
-        Shape enemy3;
 
+        bool playerIsColliding;
         int playerSpeed = 4;
 
         public override void OnLoad()
         {
-            enemy = new Shape(new Vector2(600, 200), new Vector2(50, 50), Color.Red, "enemy");
-            enemy2 = new Shape(new Vector2(500, 100), new Vector2(50, 50), Color.Red, "enemy");
-            enemy3 = new Shape(new Vector2(400, 50), new Vector2(50, 50), Color.Red, "enemy");
-            player = new Shape(new Vector2(200, 200), new Vector2(50, 50), Color.Blue, "player");
+            string[,] map = new string[10, 10]
+            {
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "e" , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "p" , "." , "." , "w" , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
+                { "w" , "w" , "w" , "w" , "w" , "w" , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+            };
+
+            Room.AddRoom(map);
+
+            foreach (Vector2 i in Room.GetTiles("w"))
+            {
+                new Shape(i, new Vector2(50, 50), Color.Black, "wall");
+            }
+
+            foreach (Vector2 i in Room.GetTiles("p"))
+            {
+                player = new Shape(i, new Vector2(50, 50), Color.Blue, "player");
+            }
+
+            foreach (Vector2 i in Room.GetTiles("e"))
+            {
+                new Shape(i, new Vector2(50, 50), Color.Red, "enemy");
+            }
         }
 
         public override void OnUpdate()
@@ -35,7 +60,7 @@ namespace BeetleEngine
             if (A) player.Position.x -= playerSpeed;
             if (D) player.Position.x += playerSpeed;
 
-            if (player.IsCollided(player, "enemy"))
+            if (player.IsCollided(player, "enemy") || player.IsCollided(player, "wall"))
             {
                 Console.WriteLine("Collision");
                 player.Color = Color.Green;
