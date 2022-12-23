@@ -59,6 +59,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="Vector2.cs" />
+    <Compile Include="Vector2Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

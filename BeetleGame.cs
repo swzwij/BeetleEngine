@@ -41,15 +41,23 @@ namespace BeetleEngine
                 new Shape(i, new Vector2(50, 50), Color.Black, "wall");
             }
 
+            foreach (Vector2 i in Room.GetTiles("e"))
+            {
+                new Shape(i, new Vector2(50, 50), Color.Red, "enemy");
+            }
+
             foreach (Vector2 i in Room.GetTiles("p"))
             {
                 player = new Shape(i, new Vector2(50, 50), Color.Blue, "player");
             }
 
-            foreach (Vector2 i in Room.GetTiles("e"))
-            {
-                new Shape(i, new Vector2(50, 50), Color.Red, "enemy");
-            }
+            double mag = testVec.Magnitude();
+            Vector2 norm = testVec.Normalized();
+
+            Console.WriteLine(testVec.x + " " + testVec.y);
+            Console.WriteLine(mag);
+            Console.WriteLine(norm.x + " " + norm.y);
+            Console.WriteLine(" ");
         }
 
         public override void OnUpdate()

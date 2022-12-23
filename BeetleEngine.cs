@@ -40,7 +40,7 @@ namespace BeetleEngine
         public Canvas window;
         private Thread _gameLoopThread;
         public static List<Shape> renderStack = new List<Shape>();
-
+        
         public static bool W, A, S, D;
 
         public BeetleEngine(Vector2 newScreenSize, string newTitle)
@@ -56,6 +56,8 @@ namespace BeetleEngine
             _gameLoopThread = new Thread(GameLoop);
             _gameLoopThread.SetApartmentState(ApartmentState.STA);
             _gameLoopThread.Start();
+
+            
 
             Application.Run(window);
         }

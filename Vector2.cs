@@ -18,7 +18,6 @@ namespace BeetleEngine
             y = Y;
         }
 
-        // TODO: naar utils
         /// <summary>
         /// Return the middle point of a object.
         /// </summary>
@@ -73,29 +72,6 @@ namespace BeetleEngine
             }
 
             return closestShape;
-        }
-
-        /// <summary>
-        /// Returns the magnitude of a Vector.
-        /// </summary>
-        public static double Magnitude(Vector2 vector)
-        {
-            double magnitude = Math.Sqrt((vector.x + vector.x) + (vector.y + vector.y));
-            return magnitude;
-        }
-
-        /// <summary>
-        /// Return a normalized vector (magnitude of 1).
-        /// </summary>
-        public static Vector2 Normalized(Vector2 vector)
-        {
-            Vector2 normalizedVector = new Vector2(0, 0);
-            double magnitude = Magnitude(vector);
-
-            normalizedVector.x = vector.x / magnitude;
-            normalizedVector.y = vector.y / magnitude;
-
-            return normalizedVector;
         }
     }
 }
