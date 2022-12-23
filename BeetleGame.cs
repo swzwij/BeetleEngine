@@ -15,8 +15,8 @@ namespace BeetleEngine
 
         Shape player;
 
-        bool playerIsColliding;
         int playerSpeed = 4;
+        Vector2 testVec = new Vector2(5 ,10);
 
         public override void OnLoad()
         {
