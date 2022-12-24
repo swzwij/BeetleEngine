@@ -18,21 +18,6 @@ namespace BeetleEngine
         {
             this.DoubleBuffered = true;
         }
-
-        private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Canvas));
-            this.SuspendLayout();
-            // 
-            // Canvas
-            // 
-            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Canvas";
-            this.ResumeLayout(false);
-
-        }
     }
 
     public abstract class BeetleEngine
@@ -41,7 +26,7 @@ namespace BeetleEngine
         public string title;
         public Canvas window;
         public Color windowBackground;
-        private Thread _gameLoopThread;
+        private readonly Thread gameLoopThread;
         public static List<Shape> renderStack = new List<Shape>();
 
         public static bool W, A, S, D;
@@ -52,15 +37,17 @@ namespace BeetleEngine
             this.title = newTitle;
             windowBackground = Color.White;
 
-            window = new Canvas();
-            window.Size = new Size((int)screenSize.x, (int)screenSize.y);
-            window.Text = this.title;
-            window.Opacity = 1;
+            window = new Canvas
+            {
+                Size = new Size((int)screenSize.x, (int)screenSize.y),
+                Text = this.title,
+                Opacity = 1
+            };
             window.Paint += Renderer;
 
-            _gameLoopThread = new Thread(GameLoop);
-            _gameLoopThread.SetApartmentState(ApartmentState.STA);
-            _gameLoopThread.Start();
+            gameLoopThread = new Thread(GameLoop);
+            gameLoopThread.SetApartmentState(ApartmentState.STA);
+            gameLoopThread.Start();
 
             
 
