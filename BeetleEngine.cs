@@ -50,13 +50,12 @@ namespace BeetleEngine
         {
             screenSize = newScreenSize;
             this.title = newTitle;
-            windowBackground = Color.Gray;
+            windowBackground = Color.Blue;
 
             window = new Canvas();
             window.Size = new Size((int)screenSize.x, (int)screenSize.y);
             window.Text = this.title;
             window.Opacity = 1;
-            window.ForeColor = Color.Blue;
             window.Paint += Renderer;
 
             _gameLoopThread = new Thread(GameLoop);
@@ -109,7 +108,7 @@ namespace BeetleEngine
         private void Renderer(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            graphics.Clear(Color.White);
+            graphics.Clear(windowBackground);
 
             List<Shape> render = new List<Shape>(renderStack); // TODO: make render list go backwards so earlier created shapes have higher layer
 
