@@ -65,7 +65,7 @@ namespace BeetleEngine
             {
                 if (shape == exeption) continue;
 
-                if(GetDistance(shape.Position, Position) < GetDistance(closestShape.Position, Position))
+                if (GetDistance(shape.Position, Position) < GetDistance(closestShape.Position, Position))
                 {
                     closestShape = shape;
                 }
@@ -73,5 +73,14 @@ namespace BeetleEngine
 
             return closestShape;
         }
+
+        #region Vector2 Operator overloading
+
+        public static Vector2 operator +(Vector2 vectorA, Vector2 vectorB) => new Vector2(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
+        public static Vector2 operator -(Vector2 vectorA, Vector2 vectorB) => new Vector2(vectorA.x - vectorB.x, vectorA.y - vectorB.y);
+        public static Vector2 operator *(Vector2 vectorA, Vector2 vectorB) => new Vector2(vectorA.x * vectorB.x, vectorA.y * vectorB.y);
+        public static Vector2 operator /(Vector2 vectorA, Vector2 vectorB) => new Vector2(vectorA.x / vectorB.x, vectorA.y / vectorB.y);
+
+        #endregion
     }
 }
