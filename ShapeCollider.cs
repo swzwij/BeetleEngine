@@ -11,9 +11,10 @@ namespace BeetleEngine
         public static bool IsColliding(this Shape shape, string tag)
         {
             List<Shape> shapes = BeetleEngine.GetShapesWithTag(tag);
-
-            foreach (Shape obj in shapes)
+            for (int i = 0; i < shapes.Count; i++)
             {
+                Shape obj = shapes[i];
+
                 if (obj.Position.y + obj.Scale.y > shape.Position.y &&
                     shape.Position.y + shape.Scale.y > obj.Position.y &&
                     obj.Position.x + obj.Scale.x > shape.Position.x &&
@@ -22,7 +23,6 @@ namespace BeetleEngine
                     return true;
                 }
             }
-
             return false;
         }
     }

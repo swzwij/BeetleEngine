@@ -46,19 +46,22 @@ namespace BeetleEngine
 
             Room.AddRoom(map);
 
-            foreach (Vector2 i in Room.GetTiles("w"))
+            List<Vector2> players = Room.GetTiles("p");
+            for (int i = 0; i < players.Count; i++)
             {
-                new Shape(i, new Vector2(50, 50), Color.Black, "wall");
+                player = new Shape(players[i], new Vector2(50, 50), Color.Blue, "player");
             }
 
-            foreach (Vector2 i in Room.GetTiles("e"))
+            List<Vector2> wallTiles = Room.GetTiles("w");
+            for (int i = 0; i < wallTiles.Count; i++)
             {
-                new Shape(i, new Vector2(50, 50), Color.Red, "enemy");
+                new Shape(wallTiles[i], new Vector2(50, 50), Color.Black, "wall");
             }
 
-            foreach (Vector2 i in Room.GetTiles("p"))
+            List<Vector2> enemies = Room.GetTiles("e");
+            for (int i = 0; i < enemies.Count; i++)
             {
-                player = new Shape(i, new Vector2(50, 50), Color.Blue, "player");
+                new Shape(enemies[i], new Vector2(50, 50), Color.Red, "enemy");
             }
 
             double mag = testVec.Magnitude();

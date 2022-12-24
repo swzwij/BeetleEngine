@@ -50,7 +50,7 @@ namespace BeetleEngine
         {
             screenSize = newScreenSize;
             this.title = newTitle;
-            windowBackground = Color.Blue;
+            windowBackground = Color.White;
 
             window = new Canvas();
             window.Size = new Size((int)screenSize.x, (int)screenSize.y);
@@ -77,12 +77,11 @@ namespace BeetleEngine
         public static List<Shape> GetShapesWithTag(string requiredTag)
         {
             List<Shape> shapesWithTag = new List<Shape>();
-
-            foreach (Shape shape in renderStack)
+            for (int i = 0; i < renderStack.Count; i++)
             {
-                if (shape.Tag == requiredTag) shapesWithTag.Add(shape);
+                Shape currentShape = renderStack[i];
+                if (currentShape.Tag == requiredTag) shapesWithTag.Add(currentShape);
             }
-
             return shapesWithTag;
         }
         
@@ -111,15 +110,16 @@ namespace BeetleEngine
             graphics.Clear(windowBackground);
 
             List<Shape> render = new List<Shape>(renderStack);
-
-            foreach (Shape shape in render)
+            for (int i = renderStack.Count - 1; i >= 0; i--)
             {
+                Shape currentShape = renderStack[i];
+
                 graphics.FillRectangle(
-                    new SolidBrush(shape.Color), 
-                    (int)shape.Position.x, 
-                    (int)shape.Position.y, 
-                    (int)shape.Scale.x, 
-                    (int)shape.Scale.y);
+                    new SolidBrush(currentShape.Color),
+                    (int)currentShape.Position.x,
+                    (int)currentShape.Position.y,
+                    (int)currentShape.Scale.x,
+                    (int)currentShape.Scale.y);
             }
         }
 

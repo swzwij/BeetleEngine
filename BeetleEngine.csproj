@@ -60,6 +60,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeCollider.cs" />
+    <Compile Include="Transform.cs" />
     <Compile Include="Vector2.cs" />
     <Compile Include="Vector2Utils.cs" />
   </ItemGroup>
