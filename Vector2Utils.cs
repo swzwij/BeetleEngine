@@ -84,7 +84,7 @@ namespace BeetleEngine
 
         #endregion 
 
-        #region Vector2 (Add, Subtract, Multiply, Devide) // TODO: operator overload?
+        #region Vector2 (Add, Subtract, Multiply, Devide)
 
         /// <summary>
         /// Add two vectors with eachother

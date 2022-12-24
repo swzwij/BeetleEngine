@@ -72,8 +72,6 @@ namespace BeetleEngine
 
         public override void OnUpdate()
         {
-            // TODO: Fix input
-
             if (W) player.Position.y -= playerSpeed;
             if (S) player.Position.y += playerSpeed;
             if (A) player.Position.x -= playerSpeed;

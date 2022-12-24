@@ -78,7 +78,7 @@ namespace BeetleEngine
         {
             List<Shape> shapesWithTag = new List<Shape>();
 
-            foreach (Shape shape in renderStack) // TODO: For Each of Loop. FF cheken met nieuwste c# versie
+            foreach (Shape shape in renderStack)
             {
                 if (shape.Tag == requiredTag) shapesWithTag.Add(shape);
             }
@@ -110,7 +110,7 @@ namespace BeetleEngine
             Graphics graphics = e.Graphics;
             graphics.Clear(windowBackground);
 
-            List<Shape> render = new List<Shape>(renderStack); // TODO: make render list go backwards so earlier created shapes have higher layer
+            List<Shape> render = new List<Shape>(renderStack);
 
             foreach (Shape shape in render)
             {
@@ -125,7 +125,6 @@ namespace BeetleEngine
 
         private void GetInput()
         {
-            // TODO: Fix input
             W = ((Keyboard.GetKeyStates(Key.W) & KeyStates.Down) > 0) ? true : false;
             A = ((Keyboard.GetKeyStates(Key.A) & KeyStates.Down) > 0) ? true : false;
             S = ((Keyboard.GetKeyStates(Key.S) & KeyStates.Down) > 0) ? true : false;

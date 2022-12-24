@@ -10,7 +10,6 @@ namespace BeetleEngine
     {
         public static bool IsColliding(this Shape shape, string tag)
         {
-            // TODO: AABB
             List<Shape> shapes = BeetleEngine.GetShapesWithTag(tag);
 
             foreach (Shape obj in shapes)
