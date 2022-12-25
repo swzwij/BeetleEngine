@@ -13,10 +13,13 @@ namespace BeetleEngine
     {
         public BeetleGame() : base(new Vector2(1000, 750), "Beetle Game") { }
 
-        Shape player;
+        GameObject player;
 
         int playerSpeed = 4;
         Vector2 testVec = new Vector2(5 ,10);
+
+        List<GameObject> gravityObjects = new List<GameObject>();
+        int gravityForce = 1;
 
         public override void OnLoad()
         {
@@ -49,19 +52,22 @@ namespace BeetleEngine
             List<Vector2> players = Room.GetTiles("p");
             for (int i = 0; i < players.Count; i++)
             {
-                player = new Shape(players[i], new Vector2(50, 50), Color.Blue, "player");
+                player = new GameObject(players[i], new Vector2(50, 50), Color.Blue, "player", true);
+
+                if (player.HasGravity) gravityObjects.Add(player);
             }
 
             List<Vector2> wallTiles = Room.GetTiles("w");
             for (int i = 0; i < wallTiles.Count; i++)
             {
-                new Shape(wallTiles[i], new Vector2(50, 50), Color.Black, "wall");
+                new GameObject(wallTiles[i], new Vector2(50, 50), Color.Black, "wall");
             }
 
             List<Vector2> enemies = Room.GetTiles("e");
             for (int i = 0; i < enemies.Count; i++)
             {
-                new Shape(enemies[i], new Vector2(50, 50), Color.Red, "enemy");
+                GameObject newEnemy = new GameObject(enemies[i], new Vector2(50, 50), Color.Red, "enemy", true);
+                if (newEnemy.HasGravity) gravityObjects.Add(newEnemy);
             }
 
             double mag = testVec.Magnitude();
@@ -88,6 +94,11 @@ namespace BeetleEngine
             else
             {
                 player.Color = Color.Blue;
+            }
+
+            foreach (GameObject gravityObject in gravityObjects)
+            {
+                gravityObject.Position += new Vector2(0, gravityForce);
             }
         }
     }

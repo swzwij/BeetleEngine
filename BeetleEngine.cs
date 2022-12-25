@@ -27,7 +27,7 @@ namespace BeetleEngine
         public Canvas window;
         public Color windowBackground;
         private readonly Thread gameLoopThread;
-        public static List<Shape> renderStack = new List<Shape>();
+        public static List<GameObject> renderStack = new List<GameObject>();
 
         public static bool W, A, S, D;
 
@@ -54,22 +54,22 @@ namespace BeetleEngine
             Application.Run(window);
         }
 
-        public static void RegisterShape(Shape newShape)
+        public static void RegisterGameObject(GameObject newGameObject)
         {
-            if (newShape == null) return;
+            if (newGameObject == null) return;
 
-            renderStack.Add(newShape);
+            renderStack.Add(newGameObject);
         }
 
-        public static List<Shape> GetShapesWithTag(string requiredTag)
+        public static List<GameObject> GetGameObjectsWithTag(string requiredTag)
         {
-            List<Shape> shapesWithTag = new List<Shape>();
+            List<GameObject> gameObjectsWithTag = new List<GameObject>();
             for (int i = 0; i < renderStack.Count; i++)
             {
-                Shape currentShape = renderStack[i];
-                if (currentShape.Tag == requiredTag) shapesWithTag.Add(currentShape);
+                GameObject currentGameObject = renderStack[i];
+                if (currentGameObject.Tag == requiredTag) gameObjectsWithTag.Add(currentGameObject);
             }
-            return shapesWithTag;
+            return gameObjectsWithTag;
         }
         
         private void GameLoop()
@@ -96,17 +96,17 @@ namespace BeetleEngine
             Graphics graphics = e.Graphics;
             graphics.Clear(windowBackground);
 
-            List<Shape> render = new List<Shape>(renderStack);
+            List<GameObject> render = new List<GameObject>(renderStack);
             for (int i = renderStack.Count - 1; i >= 0; i--)
             {
-                Shape currentShape = renderStack[i];
+                GameObject currentGameObject = renderStack[i];
 
                 graphics.FillRectangle(
-                    new SolidBrush(currentShape.Color),
-                    (int)currentShape.Position.x,
-                    (int)currentShape.Position.y,
-                    (int)currentShape.Scale.x,
-                    (int)currentShape.Scale.y);
+                    new SolidBrush(currentGameObject.Color),
+                    (int)currentGameObject.Position.x,
+                    (int)currentGameObject.Position.y,
+                    (int)currentGameObject.Scale.x,
+                    (int)currentGameObject.Scale.y);
             }
         }
 

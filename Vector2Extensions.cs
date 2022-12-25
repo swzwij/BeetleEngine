@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BeetleEngine
 {
-    public static class Vector2Utils
+    public static class Vector2Extensions
     {
         /// <summary>
         /// Returns the magnitude of a Vector.

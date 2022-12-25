@@ -53,15 +53,15 @@ namespace BeetleEngine
         /// <summary>
         /// Returns the closest Shape with certain Tag.
         /// </summary>
-        public static Shape GetClosestShape(Vector2 Position, string tag, Shape exeption)
+        public static GameObject GetClosestGameObject(Vector2 Position, string tag, GameObject exeption)
         {
-            List<Shape> shapes = BeetleEngine.GetShapesWithTag(tag);
+            List<GameObject> shapes = BeetleEngine.GetGameObjectsWithTag(tag);
 
             if (shapes.Count <= 0) return null; // TODO: Error Log 
 
-            Shape closestShape = shapes[0];
+            GameObject closestShape = shapes[0];
 
-            foreach (Shape shape in shapes)
+            foreach (GameObject shape in shapes)
             {
                 if (shape == exeption) continue;
 

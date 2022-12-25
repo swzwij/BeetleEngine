@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace BeetleEngine
 {
-    public static class ShapeCollider
+    public static class GameObjectCollider
     {
-        public static bool IsColliding(this Shape shape, string tag)
+        public static bool IsColliding(this GameObject shape, string tag)
         {
-            List<Shape> shapes = BeetleEngine.GetShapesWithTag(tag);
+            List<GameObject> shapes = BeetleEngine.GetGameObjectsWithTag(tag);
             for (int i = 0; i < shapes.Count; i++)
             {
-                Shape obj = shapes[i];
+                GameObject obj = shapes[i];
 
                 if (obj.Position.y + obj.Scale.y > shape.Position.y &&
                     shape.Position.y + shape.Scale.y > obj.Position.y &&
