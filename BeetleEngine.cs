@@ -103,10 +103,10 @@ namespace BeetleEngine
 
                 graphics.FillRectangle(
                     new SolidBrush(currentGameObject.Color),
-                    (int)currentGameObject.Position.x,
-                    (int)currentGameObject.Position.y,
-                    (int)currentGameObject.Scale.x,
-                    (int)currentGameObject.Scale.y);
+                    (int)currentGameObject.Transform.Position.x,
+                    (int)currentGameObject.Transform.Position.y,
+                    (int)currentGameObject.Transform.Scale.x,
+                    (int)currentGameObject.Transform.Scale.y);
             }
         }
 

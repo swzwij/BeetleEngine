@@ -58,11 +58,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="Shape.cs" />
-    <Compile Include="ShapeCollider.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjectCollider.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Vector2.cs" />
-    <Compile Include="Vector2Utils.cs" />
+    <Compile Include="Vector2Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

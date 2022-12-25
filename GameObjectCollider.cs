@@ -15,10 +15,10 @@ namespace BeetleEngine
             {
                 GameObject obj = shapes[i];
 
-                if (obj.Position.y + obj.Scale.y > shape.Position.y &&
-                    shape.Position.y + shape.Scale.y > obj.Position.y &&
-                    obj.Position.x + obj.Scale.x > shape.Position.x &&
-                    shape.Position.x + shape.Scale.x > obj.Position.x)
+                if (obj.Transform.Position.y + obj.Transform.Scale.y > shape.Transform.Position.y &&
+                    shape.Transform.Position.y + shape.Transform.Scale.y > obj.Transform.Position.y &&
+                    obj.Transform.Position.x + obj.Transform.Scale.x > shape.Transform.Position.x &&
+                    shape.Transform.Position.x + shape.Transform.Scale.x > obj.Transform.Position.x)
                 {
                     return true;
                 }

@@ -65,7 +65,7 @@ namespace BeetleEngine
             {
                 if (shape == exeption) continue;
 
-                if (GetDistance(shape.Position, Position) < GetDistance(closestShape.Position, Position))
+                if (GetDistance(shape.Transform.Position, Position) < GetDistance(closestShape.Transform.Position, Position))
                 {
                     closestShape = shape;
                 }

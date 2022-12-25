@@ -11,40 +11,33 @@ namespace BeetleEngine
 {
     class BeetleGame : BeetleEngine
     {
-        public BeetleGame() : base(new Vector2(1000, 750), "Beetle Game") { }
+        public BeetleGame() : base(new Vector2(1000, 550), "Beetle Game") { }
 
         GameObject player;
 
         int playerSpeed = 4;
         Vector2 testVec = new Vector2(5 ,10);
 
+        List<GameObject> enemyObjects = new List<GameObject>();
         List<GameObject> gravityObjects = new List<GameObject>();
         int gravityForce = 1;
 
         public override void OnLoad()
         {
-            string[,] map = new string[20, 10]
+            string[,] map = new string[12, 14]
             {
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "e" , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "p" , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "e" , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "w" , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "e" , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "e" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "e" , "." ,},
+                { "w" , "." , "." , "." , "." , "e" , "." , "." , "." , "e" , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "w" , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "w" , "w" , "w" , "." , "w" , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" ,},
+                { "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" ,},
+                { "w" , "p" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "." , "." , "." , "." ,},
             };
 
             Room.AddRoom(map);
@@ -52,7 +45,8 @@ namespace BeetleEngine
             List<Vector2> players = Room.GetTiles("p");
             for (int i = 0; i < players.Count; i++)
             {
-                player = new GameObject(players[i], new Vector2(50, 50), Color.Blue, "player", true);
+                Transform playerPosition = new Transform(players[i], new Vector2(50, 50));
+                player = new GameObject(playerPosition, Color.Blue, "player", true);
 
                 if (player.HasGravity) gravityObjects.Add(player);
             }
@@ -60,13 +54,16 @@ namespace BeetleEngine
             List<Vector2> wallTiles = Room.GetTiles("w");
             for (int i = 0; i < wallTiles.Count; i++)
             {
-                new GameObject(wallTiles[i], new Vector2(50, 50), Color.Black, "wall");
+                Transform wallPosition = new Transform(wallTiles[i], new Vector2(50, 50));
+                new GameObject(wallPosition, Color.Black, "wall");
             }
 
             List<Vector2> enemies = Room.GetTiles("e");
             for (int i = 0; i < enemies.Count; i++)
             {
-                GameObject newEnemy = new GameObject(enemies[i], new Vector2(50, 50), Color.Red, "enemy", true);
+                Transform enemyPosition = new Transform(enemies[i], new Vector2(50, 50));
+                GameObject newEnemy = new GameObject(enemyPosition, Color.Red, "enemy", true);
+                enemyObjects.Add(newEnemy);
                 if (newEnemy.HasGravity) gravityObjects.Add(newEnemy);
             }
 
@@ -81,24 +78,33 @@ namespace BeetleEngine
 
         public override void OnUpdate()
         {
-            if (W) player.Position.y -= playerSpeed;
-            if (S) player.Position.y += playerSpeed;
-            if (A) player.Position.x -= playerSpeed;
-            if (D) player.Position.x += playerSpeed;
+            /*if (W) player.Transform.Position.y -= playerSpeed;
+            if (S) player.Transform.Position.y += playerSpeed;
+            if (A) player.Transform.Position.x -= playerSpeed;
+            if (D) player.Transform.Position.x += playerSpeed;*/
 
             if (player.IsColliding("enemy") || player.IsColliding("wall"))
             {
                 Console.WriteLine("Collision");
                 player.Color = Color.Green;
+                player.HasGravity = false;
+                gravityObjects.Remove(player);
             }
-            else
+            else player.Color = Color.Blue;
+
+            foreach (GameObject enemy in enemyObjects)
             {
-                player.Color = Color.Blue;
+                if(enemy.IsColliding("wall"))
+                {
+                    enemy.Color = Color.Green;
+                    enemy.HasGravity = false;
+                    gravityObjects.Remove(enemy);
+                }
             }
 
             foreach (GameObject gravityObject in gravityObjects)
             {
-                gravityObject.Position += new Vector2(0, gravityForce);
+                gravityObject.Transform.Position += new Vector2(0, gravityForce);
             }
         }
     }
