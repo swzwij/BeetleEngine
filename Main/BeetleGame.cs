@@ -15,25 +15,22 @@ namespace BeetleEngine
 
         GameObject player;
 
-        int playerSpeed = 4;
-        Vector2 testVec = new Vector2(5 ,10);
-
-        List<GameObject> enemyObjects = new List<GameObject>();
-        List<GameObject> gravityObjects = new List<GameObject>();
-        int gravityForce = 1;
+        readonly int playerSpeed = 4;
+        readonly Vector2 gravityForce = new Vector2(0, 2);
+        List<GameObject> gameObjects = new List<GameObject>();
 
         public override void OnLoad()
         {
             string[,] map = new string[12, 20]
             {
                 { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "e" , "." , "." , "." ,},
+                { "w" , "." , "e" , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "e" , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
                 { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "e" , "." , "e" , "." ,},
-                { "w" , "." , "e" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "e" , "." , "." , "." , "e" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." , "." ,},
-                { "w" , "." , "." , "." , "." , "." , "." , "w" , "." , "." , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." ,},
+                { "w" , "." , "." , "." , "." , "." , "." , "w" , "." , "e" , "." , "." , "." , "." , "e" , "." , "." , "." , "." , "." ,},
                 { "w" , "." , "." , "w" , "w" , "w" , "." , "w" , "." , "." , "." , "." , "." , "." , "." , "." , "." , "w" , "w" , "w" ,},
                 { "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "." , "." , "." , "w" , "w" , "." , "." , "w" , "w" , "w" , "w" , "w" ,},
                 { "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" , "w" ,},
@@ -46,34 +43,22 @@ namespace BeetleEngine
             for (int i = 0; i < players.Count; i++)
             {
                 Transform playerPosition = new Transform(players[i], new Vector2(50, 50));
-                player = new GameObject(playerPosition, Color.Blue, "player", true);
-
-                if (player.HasGravity) gravityObjects.Add(player);
+                player = new GameObject("player", playerPosition, Color.Blue, "player", true);
             }
 
             List<Vector2> wallTiles = Room.GetTiles("w");
             for (int i = 0; i < wallTiles.Count; i++)
             {
                 Transform wallPosition = new Transform(wallTiles[i], new Vector2(50, 50));
-                new GameObject(wallPosition, Color.Black, "wall");
+                new GameObject("Wall " + i, wallPosition, Color.Black, "wall");
             }
 
             List<Vector2> enemies = Room.GetTiles("e");
             for (int i = 0; i < enemies.Count; i++)
             {
                 Transform enemyPosition = new Transform(enemies[i], new Vector2(50, 50));
-                GameObject newEnemy = new GameObject(enemyPosition, Color.Red, "enemy", true);
-                enemyObjects.Add(newEnemy);
-                if (newEnemy.HasGravity) gravityObjects.Add(newEnemy);
+                new GameObject("Enemy " + i, enemyPosition, Color.Red, "enemy", true);
             }
-
-            double mag = testVec.Magnitude();
-            Vector2 norm = testVec.Normalized();
-
-            Console.WriteLine(testVec.x + " " + testVec.y);
-            Console.WriteLine(mag);
-            Console.WriteLine(norm.x + " " + norm.y);
-            Console.WriteLine(" ");
         }
 
         public override void OnUpdate()
@@ -83,28 +68,20 @@ namespace BeetleEngine
             if (A) player.Transform.Position.x -= playerSpeed;
             if (D) player.Transform.Position.x += playerSpeed;
 
-            if (player.IsColliding("enemy") || player.IsColliding("wall"))
+            int l = renderStack.Count;
+            for (int i = 0; i < l; i++)
             {
-                Console.WriteLine("Collision");
-                player.Color = Color.Green;
-                player.HasGravity = false;
-                gravityObjects.Remove(player);
-            }
-            else player.Color = Color.Blue;
+                GameObject currentObject = renderStack[i];
 
-            foreach (GameObject enemy in enemyObjects)
-            {
-                if(enemy.IsColliding("wall"))
-                {
-                    enemy.Color = Color.Green;
-                    enemy.HasGravity = false;
-                    gravityObjects.Remove(enemy);
-                }
-            }
+                if (!currentObject.HasGravity) continue;
+                
+                currentObject.Transform.Position += gravityForce;
 
-            foreach (GameObject gravityObject in gravityObjects)
-            {
-                gravityObject.Transform.Position += new Vector2(0, gravityForce);
+                if (!currentObject.IsColliding("wall")) continue;
+
+                currentObject.HasGravity = false;
+                currentObject.Transform.Position -= gravityForce;
+                currentObject.Color = Color.Green;
             }
         }
     }

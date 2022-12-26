@@ -11,18 +11,20 @@ namespace BeetleEngine
 {
     public class GameObject
     {
+        public string Name { get; set; }
         public Transform Transform { get; set; }
         public Color Color = Color.Black;
         public string Tag;
         public bool HasGravity;
 
-        public GameObject(Transform transform, Color color, string tag, bool hasGravity = false)
+        public GameObject(string name, Transform transform, Color color, string tag, bool hasGravity = false)
         {
+            Name = name;
             Transform = transform;
             this.Color = color;
             Tag = tag;
-            BeetleEngine.RegisterGameObject(this);
             HasGravity = hasGravity;
+            BeetleEngine.RegisterGameObject(this);
         }
 
         /// <summary>
