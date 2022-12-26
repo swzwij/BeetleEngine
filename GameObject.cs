@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BugEngine;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -22,6 +23,30 @@ namespace BeetleEngine
             Tag = tag;
             BeetleEngine.RegisterGameObject(this);
             HasGravity = hasGravity;
+        }
+
+        /// <summary>
+        /// Returns the closest Shape with certain Tag.
+        /// </summary>
+        public static GameObject GetClosestGameObject(Vector2 Position, string tag, GameObject exeption)
+        {
+            List<GameObject> shapes = BeetleEngine.GetGameObjectsWithTag(tag);
+
+            if (shapes.Count <= 0) return null; // TODO: Error Log 
+
+            GameObject closestShape = shapes[0];
+
+            foreach (GameObject shape in shapes)
+            {
+                if (shape == exeption) continue;
+
+                if (TransformExtensions.GetDistance(shape.Transform.Position, Position) < TransformExtensions.GetDistance(closestShape.Transform.Position, Position))
+                {
+                    closestShape = shape;
+                }
+            }
+
+            return closestShape;
         }
     }
 }
