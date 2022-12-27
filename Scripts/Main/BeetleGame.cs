@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,13 +16,13 @@ namespace BeetleEngine
 
         GameObject player;
 
-        readonly int playerSpeed = 4;
+        float cameraSpeed = 1.5f;
         readonly Vector2 gravityForce = new Vector2(0, 2);
         List<GameObject> gameObjects = new List<GameObject>();
 
         public override void OnLoad()
         {
-            string[,] map = new string[12, 20]
+            string[,] map = new string[18, 20]
             {
                 {".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
                 {".",".",".",".",".",".",".",".",".",".",".",".",".","e",".",".",".",".",".",".",},
@@ -33,6 +34,12 @@ namespace BeetleEngine
                 {".",".","e",".",".",".",".","e",".",".",".",".","e",".",".",".",".",".",".",".",},
                 {".",".",".",".",".",".",".",".",".",".",".","e",".",".",".",".",".",".",".",".",},
                 {".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+                {"w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w",},
+                {"w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w",},
+                {"w","w","w","w","w","w",".",".",".","w","w","w","w","w","w","w","w","w","w","w",},
+                {"w","w","w","w","w",".",".","w","w","w","w","w","w","w","w","w","w","w","w","w",},
+                {"w","w","w","w","w",".",".",".",".","w","w","w","w","w","w","w","w","w","w","w",},
+                {"w","w","w","w","w","w",".","w",".","w","w","w","w","w","w","w","w","w","w","w",},
                 {"w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w","w",},
                 {"p",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
             };
@@ -63,10 +70,43 @@ namespace BeetleEngine
 
         public override void OnUpdate()
         {
-            if (W) player.Transform.Position.y -= playerSpeed;
-            if (S) player.Transform.Position.y += playerSpeed;
-            if (A) player.Transform.Position.x -= playerSpeed;
-            if (D) player.Transform.Position.x += playerSpeed;
+            if (input.Up)
+            {
+                for (int i = 0; i < renderStack.Count; i++)
+                {
+                    renderStack[i].Transform.Position += new Vector2(0, cameraSpeed);
+                }
+            }
+            if (input.Down)
+            {
+                for (int i = 0; i < renderStack.Count; i++)
+                {
+                    renderStack[i].Transform.Position -= new Vector2(0, cameraSpeed);
+                }
+            }
+            if (input.Left)
+            {
+                for (int i = 0; i < renderStack.Count; i++)
+                {
+                    renderStack[i].Transform.Position += new Vector2(cameraSpeed, 0);
+                }
+            }
+            if (input.Right)
+            {
+                for (int i = 0; i < renderStack.Count; i++)
+                {
+                    renderStack[i].Transform.Position -= new Vector2(cameraSpeed, 0);
+                }
+            }
+            if(input.Plus)
+            {
+                cameraSpeed += .1f;
+            }
+            if (input.Minus)
+            {
+                cameraSpeed -= .1f;
+            }
+
 
             int l = renderStack.Count;
             for (int i = 0; i < l; i++)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeetleEngine;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -29,7 +30,7 @@ namespace BeetleEngine
         private readonly Thread gameLoopThread;
         public static List<GameObject> renderStack = new List<GameObject>();
 
-        public static bool W, A, S, D;
+        public Input input = new Input();
 
         public BeetleEngine(Vector2 newScreenSize, string newTitle)
         {
@@ -112,10 +113,12 @@ namespace BeetleEngine
 
         private void GetInput()
         {
-            W = ((Keyboard.GetKeyStates(Key.W) & KeyStates.Down) > 0) ? true : false;
-            A = ((Keyboard.GetKeyStates(Key.A) & KeyStates.Down) > 0) ? true : false;
-            S = ((Keyboard.GetKeyStates(Key.S) & KeyStates.Down) > 0) ? true : false;
-            D = ((Keyboard.GetKeyStates(Key.D) & KeyStates.Down) > 0) ? true : false;
+            input.Up = ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0) ? true : false;
+            input.Down = ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0) ? true : false;
+            input.Left = ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0) ? true : false;
+            input.Right = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) ? true : false;
+            input.Plus = ((Keyboard.GetKeyStates(Key.P) & KeyStates.Down) > 0) ? true : false;
+            input.Minus = ((Keyboard.GetKeyStates(Key.O) & KeyStates.Down) > 0) ? true : false;
         }
 
         public abstract void OnLoad();
