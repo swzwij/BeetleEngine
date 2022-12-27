@@ -119,6 +119,9 @@ namespace BeetleEngine
             input.Right = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) ? true : false;
             input.Plus = ((Keyboard.GetKeyStates(Key.P) & KeyStates.Down) > 0) ? true : false;
             input.Minus = ((Keyboard.GetKeyStates(Key.O) & KeyStates.Down) > 0) ? true : false;
+
+            System.Drawing.Point mousePoint = System.Windows.Forms.Control.MousePosition;
+            input.MousePos = new Vector2(mousePoint.X, mousePoint.Y);
         }
 
         public abstract void OnLoad();

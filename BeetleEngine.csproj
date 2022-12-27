@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Scripts\Main\BeetleEngine.cs">
       <SubType>Form</SubType>

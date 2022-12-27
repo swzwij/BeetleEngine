@@ -15,8 +15,9 @@ namespace BeetleEngine
         public BeetleGame() : base(new Vector2(1050, 575), "Beetle Game") { }
 
         GameObject player;
+        GameObject mouseObj;
 
-        float cameraSpeed = 1.5f;
+        float cameraSpeed = 3f;
         readonly Vector2 gravityForce = new Vector2(0, 2);
         List<GameObject> gameObjects = new List<GameObject>();
 
@@ -66,10 +67,15 @@ namespace BeetleEngine
                 Transform enemyPosition = new Transform(enemies[i], new Vector2(50, 50));
                 new GameObject("Enemy " + i, enemyPosition, Color.Red, "enemy", true);
             }
+
+            Transform mousePosition = new Transform(new Vector2(0, 0), new Vector2(50, 50));
+            mouseObj = new GameObject("Mouse", mousePosition, Color.Orange, "mouse");
         }
 
         public override void OnUpdate()
         {
+            mouseObj.Transform.Position = input.MousePos - new Vector2(25, 50);
+
             if (input.Up)
             {
                 for (int i = 0; i < renderStack.Count; i++)
@@ -100,11 +106,11 @@ namespace BeetleEngine
             }
             if(input.Plus)
             {
-                cameraSpeed += .1f;
+                cameraSpeed += 1;
             }
             if (input.Minus)
             {
-                cameraSpeed -= .1f;
+                cameraSpeed -= 1;
             }
 
 

@@ -14,5 +14,6 @@ namespace BeetleEngine
         public bool Right { get; set; }
         public bool Plus { get; set; }
         public bool Minus { get; set; }
+        public Vector2 MousePos { get; set; }
     }
 }
