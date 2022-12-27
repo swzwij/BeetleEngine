@@ -42,7 +42,9 @@ namespace BeetleEngine
             {
                 Size = new Size((int)screenSize.x, (int)screenSize.y),
                 Text = this.title,
-                Opacity = 1
+                Opacity = 1,
+                //FormBorderStyle = FormBorderStyle.None,
+                WindowState = FormWindowState.Maximized
             };
             window.Paint += Renderer;
 
