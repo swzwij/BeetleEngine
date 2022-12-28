@@ -7,6 +7,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BeetleEngine
 {
@@ -74,41 +75,42 @@ namespace BeetleEngine
 
         public override void OnUpdate()
         {
-            mouseObj.Transform.Position = input.MousePos - new Vector2(25, 50);
+            mouseObj.Transform.Position = mouseInput.MousePosition - new Vector2(25, 50);
 
-            if (input.Up)
+            if (keyInput.Up)
             {
                 for (int i = 0; i < renderStack.Count; i++)
                 {
                     renderStack[i].Transform.Position += new Vector2(0, cameraSpeed);
                 }
             }
-            if (input.Down)
+            if (keyInput.Down)
             {
                 for (int i = 0; i < renderStack.Count; i++)
                 {
                     renderStack[i].Transform.Position -= new Vector2(0, cameraSpeed);
                 }
             }
-            if (input.Left)
+            if (keyInput.Left)
             {
                 for (int i = 0; i < renderStack.Count; i++)
                 {
                     renderStack[i].Transform.Position += new Vector2(cameraSpeed, 0);
                 }
             }
-            if (input.Right)
+            if (keyInput.Right)
             {
                 for (int i = 0; i < renderStack.Count; i++)
                 {
                     renderStack[i].Transform.Position -= new Vector2(cameraSpeed, 0);
                 }
             }
-            if(input.Plus)
+            
+            if(keyInput.Plus)
             {
                 cameraSpeed += 1;
             }
-            if (input.Minus)
+            if (keyInput.Minus)
             {
                 cameraSpeed -= 1;
             }

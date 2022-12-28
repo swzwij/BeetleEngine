@@ -30,7 +30,8 @@ namespace BeetleEngine
         private readonly Thread gameLoopThread;
         public static List<GameObject> renderStack = new List<GameObject>();
 
-        public Input input = new Input();
+        public KeyInput keyInput = new KeyInput();
+        public MouseInput mouseInput = new MouseInput();
 
         public BeetleEngine(Vector2 newScreenSize, string newTitle)
         {
@@ -82,7 +83,6 @@ namespace BeetleEngine
             {
                 try
                 {
-                    GetInput();
                     window.BeginInvoke((MethodInvoker)delegate { window.Refresh(); });
                     OnUpdate();
                     Thread.Sleep(1);
@@ -111,19 +111,6 @@ namespace BeetleEngine
                     (int)currentGameObject.Transform.Scale.x,
                     (int)currentGameObject.Transform.Scale.y);
             }
-        }
-
-        private void GetInput()
-        {
-            input.Up = ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0) ? true : false;
-            input.Down = ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0) ? true : false;
-            input.Left = ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0) ? true : false;
-            input.Right = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) ? true : false;
-            input.Plus = ((Keyboard.GetKeyStates(Key.P) & KeyStates.Down) > 0) ? true : false;
-            input.Minus = ((Keyboard.GetKeyStates(Key.O) & KeyStates.Down) > 0) ? true : false;
-
-            System.Drawing.Point mousePoint = System.Windows.Forms.Control.MousePosition;
-            input.MousePos = new Vector2(mousePoint.X, mousePoint.Y);
         }
 
         public abstract void OnLoad();
