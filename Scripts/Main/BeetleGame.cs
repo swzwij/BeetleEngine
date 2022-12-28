@@ -88,7 +88,6 @@ namespace BeetleEngine
                 renderStack[i].Transform.Position += camerPositon;
             }
             
-            
             if(keyInput.Plus)
             {
                 cameraSpeed += 1;
@@ -98,6 +97,11 @@ namespace BeetleEngine
                 cameraSpeed -= 1;
             }
 
+            if(keyInput.Esc)
+            {
+                if (System.Windows.Forms.Application.MessageLoop) System.Windows.Forms.Application.Exit();
+                else Environment.Exit(1);
+            }
 
             int l = renderStack.Count;
             for (int i = 0; i < l; i++)

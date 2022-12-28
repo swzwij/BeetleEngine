@@ -16,5 +16,6 @@ namespace BeetleEngine
         public bool Right => (Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0;
         public bool Plus => (Keyboard.GetKeyStates(Key.P) & KeyStates.Down) > 0;
         public bool Minus => (Keyboard.GetKeyStates(Key.O) & KeyStates.Down) > 0;
+        public bool Esc => (Keyboard.GetKeyStates(Key.Escape) & KeyStates.Down) > 0;
     }
 }
