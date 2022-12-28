@@ -48,6 +48,9 @@ namespace BeetleEngine
 
             Room.AddRoom(map);
 
+            Transform mousePosition = new Transform(new Vector2(0, 0), new Vector2(50, 50));
+            mouseObj = new GameObject("Mouse", mousePosition, Color.Orange, "mouse");
+
             List<Vector2> players = Room.GetTiles("p");
             for (int i = 0; i < players.Count; i++)
             {
@@ -68,43 +71,23 @@ namespace BeetleEngine
                 Transform enemyPosition = new Transform(enemies[i], new Vector2(50, 50));
                 new GameObject("Enemy " + i, enemyPosition, Color.Red, "enemy", true);
             }
-
-            Transform mousePosition = new Transform(new Vector2(0, 0), new Vector2(50, 50));
-            mouseObj = new GameObject("Mouse", mousePosition, Color.Orange, "mouse");
         }
 
         public override void OnUpdate()
         {
             mouseObj.Transform.Position = mouseInput.MousePosition - new Vector2(25, 50);
+            Vector2 camerPositon = new Vector2(0, 0);
 
-            if (keyInput.Up)
+            if (keyInput.Up) camerPositon.y += cameraSpeed;
+            if (keyInput.Down) camerPositon.y -= cameraSpeed;
+            if (keyInput.Left) camerPositon.x += cameraSpeed;
+            if (keyInput.Right) camerPositon.x -= cameraSpeed;
+            
+            for (int i = 0; i < renderStack.Count; i++)
             {
-                for (int i = 0; i < renderStack.Count; i++)
-                {
-                    renderStack[i].Transform.Position += new Vector2(0, cameraSpeed);
-                }
+                renderStack[i].Transform.Position += camerPositon;
             }
-            if (keyInput.Down)
-            {
-                for (int i = 0; i < renderStack.Count; i++)
-                {
-                    renderStack[i].Transform.Position -= new Vector2(0, cameraSpeed);
-                }
-            }
-            if (keyInput.Left)
-            {
-                for (int i = 0; i < renderStack.Count; i++)
-                {
-                    renderStack[i].Transform.Position += new Vector2(cameraSpeed, 0);
-                }
-            }
-            if (keyInput.Right)
-            {
-                for (int i = 0; i < renderStack.Count; i++)
-                {
-                    renderStack[i].Transform.Position -= new Vector2(cameraSpeed, 0);
-                }
-            }
+            
             
             if(keyInput.Plus)
             {
