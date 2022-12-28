@@ -20,7 +20,7 @@ namespace BeetleEngine
             DateTime currentTime = DateTime.Now;
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(currentTime + " > " + message + " at line " + lineNumber + " in " + caller);
+            Console.WriteLine("[" + currentTime + "] " + caller + ".cs(" + lineNumber + ") " + message);
             Console.ForegroundColor= ConsoleColor.White;
         }
 
@@ -28,7 +28,7 @@ namespace BeetleEngine
         {
             DateTime currentTime = DateTime.Now;
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(currentTime + " > " + message + " at line " + lineNumber + " in " + caller);
+            Console.WriteLine("[" + currentTime + "] " + caller + ".cs(" + lineNumber + ") " + message);
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
