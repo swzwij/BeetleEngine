@@ -26,8 +26,8 @@ namespace BeetleEngine
             Vector2 normalizedVector = new Vector2(0, 0);
             double magnitude = Magnitude(vector);
 
-            normalizedVector.x = vector.x / magnitude;
-            normalizedVector.y = vector.y / magnitude;
+            if(vector.x != 0 && magnitude != 0) normalizedVector.x = vector.x / magnitude;
+            if (vector.y != 0 && magnitude != 0) normalizedVector.y = vector.y / magnitude;
 
             return normalizedVector;
         }      
