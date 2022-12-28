@@ -32,7 +32,7 @@ namespace BeetleEngine
 
         public KeyInput keyInput = new KeyInput();
         public MouseInput mouseInput = new MouseInput();
-
+        public Debug debug = new Debug();
         public BeetleEngine(Vector2 newScreenSize, string newTitle)
         {
             screenSize = newScreenSize;

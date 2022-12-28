@@ -75,6 +75,10 @@ namespace BeetleEngine
 
         public override void OnUpdate()
         {
+            debug.Log("AAHAHA");
+            debug.Error("LOL");
+            debug.Warning("B");
+
             mouseObj.Transform.Position = mouseInput.MousePosition - new Vector2(25, 50);
             Vector2 camerPositon = new Vector2(0, 0);
 
