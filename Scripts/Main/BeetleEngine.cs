@@ -99,17 +99,23 @@ namespace BeetleEngine
             Graphics graphics = e.Graphics;
             graphics.Clear(windowBackground);
 
-            List<GameObject> render = new List<GameObject>(renderStack);
-            for (int i = 0; i < renderStack.Count; i++)
-            {
-                GameObject currentGameObject = renderStack[i];
+            string[] priorities = Enum.GetNames(typeof(RenderPriority));
 
-                graphics.FillRectangle(
-                    new SolidBrush(currentGameObject.Color),
-                    (int)currentGameObject.Transform.Position.x,
-                    (int)currentGameObject.Transform.Position.y,
-                    (int)currentGameObject.Transform.Scale.x,
-                    (int)currentGameObject.Transform.Scale.y);
+            for (int i = 0; i < priorities.Length; i++)
+            {
+                for (int j = 0; j < renderStack.Count; j++)
+                {
+                    if (renderStack[j].RenderPriority.ToString() != priorities[i]) continue;
+
+                    GameObject currentGameObject = renderStack[j];
+
+                    graphics.FillRectangle(
+                        new SolidBrush(currentGameObject.Color),
+                        (int)currentGameObject.Transform.Position.x,
+                        (int)currentGameObject.Transform.Position.y,
+                        (int)currentGameObject.Transform.Scale.x,
+                        (int)currentGameObject.Transform.Scale.y);
+                }
             }
         }
 
