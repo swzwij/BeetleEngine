@@ -49,27 +49,27 @@ namespace BeetleEngine
             Room.AddRoom(map);
 
             Transform mousePosition = new Transform(new Vector2(0, 0), new Vector2(50, 50));
-            mouseObj = new GameObject("Mouse", mousePosition, Color.Orange, "mouse");
+            mouseObj = new GameObject("Mouse", mousePosition, Color.Orange, "mouse", RenderPriority.Critical);
 
             List<Vector2> players = Room.GetTiles("p");
             for (int i = 0; i < players.Count; i++)
             {
                 Transform playerPosition = new Transform(players[i], new Vector2(50, 50));
-                player = new GameObject("player", playerPosition, Color.Blue, "player", true);
+                player = new GameObject("player", playerPosition, Color.Blue, "player", RenderPriority.High ,true);
             }
 
             List<Vector2> wallTiles = Room.GetTiles("w");
             for (int i = 0; i < wallTiles.Count; i++)
             {
                 Transform wallPosition = new Transform(wallTiles[i], new Vector2(50, 50));
-                new GameObject("Wall " + i, wallPosition, Color.Black, "wall");
+                new GameObject("Wall " + i, wallPosition, Color.Black, "wall", RenderPriority.Low);
             }
 
             List<Vector2> enemies = Room.GetTiles("e");
             for (int i = 0; i < enemies.Count; i++)
             {
                 Transform enemyPosition = new Transform(enemies[i], new Vector2(50, 50));
-                new GameObject("Enemy " + i, enemyPosition, Color.Red, "enemy", true);
+                new GameObject("Enemy " + i, enemyPosition, Color.Red, "enemy", RenderPriority.Medium ,true);
             }
         }
 

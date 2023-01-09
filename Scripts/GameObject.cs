@@ -15,14 +15,16 @@ namespace BeetleEngine
         public Transform Transform { get; set; }
         public Color Color = Color.Black;
         public string Tag;
+        public RenderPriority RenderPriority;
         public bool HasGravity;
 
-        public GameObject(string name, Transform transform, Color color, string tag, bool hasGravity = false)
+        public GameObject(string name, Transform transform, Color color, string tag, RenderPriority renderPriority = RenderPriority.Low, bool hasGravity = false)
         {
             Name = name;
             Transform = transform;
             this.Color = color;
             Tag = tag;
+            RenderPriority = renderPriority;
             HasGravity = hasGravity;
             BeetleEngine.RegisterGameObject(this);
         }
