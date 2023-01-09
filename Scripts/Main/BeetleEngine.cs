@@ -100,7 +100,7 @@ namespace BeetleEngine
             graphics.Clear(windowBackground);
 
             List<GameObject> render = new List<GameObject>(renderStack);
-            for (int i = renderStack.Count - 1; i >= 0; i--)
+            for (int i = 0; i < renderStack.Count; i++)
             {
                 GameObject currentGameObject = renderStack[i];
 
